@@ -87,31 +87,31 @@
                         <div class="col-md-6">
                            <h2>Payment calculator</h2>
                            <div class="form-group">
-                              <label for="vehiclePrice">ราคารถยนต์</label>
+                              <label for="vehiclePrice">Vehicle Price</label>
                               <input type="text" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" class="form-control" id="vehiclePrice" placeholder="Vehicle Price">
                            </div>
                         </div>
                         <div class="col-md-6">
                            <div class="form-group">
-                              <label for="downPayment">เงินดาวห์</label>
+                              <label for="downPayment">Down Payment</label>
                               <input type="text" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" class="form-control" id="downPayment" placeholder="Down Payment" value="0">
                            </div>
                         </div>
                         <div class="col-md-6">
                            <div class="form-group">
-                              <label for="tradeValue">ส่วนลดแลกรถเก่า</label>
+                              <label for="tradeValue">Trade In Value</label>
                               <input type="text" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" class="form-control" id="tradeValue" placeholder="Trade In Value" value="0">
                            </div>
                         </div>
                         <div class="col-md-6">
                            <div class="form-group">
-                              <label for="intRate">ดอกเบี้ย</label>
+                              <label for="intRate">Interest Rate</label>
                               <input type="text" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" class="form-control" id="intRate" placeholder="Interest Rate" value="3.25">
                            </div>
                         </div>
                         <div class="col-md-6">
                            <div class="form-group">
-                              <label for="loanTerm">จำนวนเดือน</label>
+                              <label for="loanTerm">Loan Term</label>
                               <input type="text" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" class="form-control" id="loanTerm" placeholder="Loan Term (ex: 36 Months)">
                            </div>
                         </div>
@@ -397,7 +397,7 @@
          paymentResults.style.display = 'block';
          paymentResults.innerHTML = '';
          var results = document.createElement('div');
-         results.innerHTML = '<h1 style="text-align:center">ผลการคำนวณค่าใช้จ่าย:<br/></h1>' + '<h3 style="text-align:center">฿' + calc + '/เดือน</h3>';
+         results.innerHTML = '<h1 style="text-align:center">Estimated Monthly Payment is:<br/></h1>' + '<h3 style="text-align:center">฿' + calc + '/Month</h3>';
 
          paymentResults.append(results);
 
