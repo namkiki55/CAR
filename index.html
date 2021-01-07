@@ -88,13 +88,18 @@
                            <h2>Payment calculator</h2>
                            <div class="form-group">
                               <label for="vehiclePrice">Vehicle Price</label>
-                              <input type="text" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" class="form-control" id="vehiclePrice" placeholder="Vehicle Price">
+                              <input type="int" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" class="form-control" id="vehiclePrice" placeholder="Vehicle Price"  value="2559000" readonly>
                            </div>
                         </div>
                         <div class="col-md-6">
                            <div class="form-group">
                               <label for="downPayment">Down Payment</label>
-                              <input type="text" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" class="form-control" id="downPayment" placeholder="Down Payment" value="0">
+                              <br>
+                              <input type='button' class="btn btn-success" value='0%' onclick='f1(this)' />
+                              <input type='button' class="btn btn-success" value='4%' onclick='f2(this)' />
+                              <input type='button'  class="btn btn-success"value='8%' onclick='f3(this)' />
+                             
+                              <input type="text" style="margin-top:1rem" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" class="form-control" id="downPayment" placeholder="Down Payment" value="0" >
                            </div>
                         </div>
                         <div class="col-md-6">
@@ -116,9 +121,7 @@
                            </div>
                         </div>
                         <div class="clearfix"></div>
-                        <div class="col-md-6">
-                           <a href="#" class="calcBtn" onclick="calculatePayments()" id="calculate" value="Calulate">Calculate</a>
-                        </div>
+                        
                      
                   </div>
                   <div class="col-md-6">
@@ -219,7 +222,7 @@
                   <div class="col-lg-4 margin_top_30">
                      <div class="full margin_top_30">
                         <h3 class="main_heading _left_side margin_top_30">BMW X1</h3>
-                        <h2 style="color:red">1,999,000 - 2,559,000 BATH</h2>
+                        <h2 style="color:red">2,559,000 BATH</h2>
                         <p class="large">Production 2009 - present BMW X1 compact luxury crossover It's been there since 2009 The grille is curved, the roof rail has a better ground height than most sports cars. With power windows Automatic air conditioning, LED rear lights, panoramic sunroof And iDrive (voice control system) provides a maximum speed of 209 km / h, can accelerate from 0-96 km / h in 5.3 seconds.
 </p>
                      </div>
@@ -342,11 +345,14 @@
    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
    <script>
-      function calculatePayments() {
-         var vehiclePrice = document.getElementById('vehiclePrice').value,
-            loanTerm = document.getElementById('loanTerm').value,
+
+
+   function f1(objButton){  
+   vehiclePrice = document.getElementById('vehiclePrice').value;
+   downPayment = document.getElementById('downPayment').value = 0/100*vehiclePrice;
+   document.getElementById('loanTerm').value = 12;
+var         loanTerm = document.getElementById('loanTerm').value,
             intRate = document.getElementById('intRate').value,
-            downPayment = document.getElementById('downPayment').value,
             tradeValue = document.getElementById('tradeValue').value,
             amount = parseInt(vehiclePrice),
             months = parseInt(loanTerm),
@@ -381,19 +387,112 @@
             intRate = document.getElementById('intRate').value = '3.25';
          }
 
-
          var calc = ((monInt + (monInt / (Math.pow((1 + monInt), months) - 1))) * (amount - (totalDown || 0))).toFixed(2);
-
          var paymentResults = document.getElementById('paymentResults');
          paymentResults.style.display = 'block';
          paymentResults.innerHTML = '';
          var results = document.createElement('div');
          results.innerHTML = '<h1 style="text-align:center">Estimated Monthly Payment is:<br/></h1>' + '<h3 style="text-align:center">฿' + calc + '/Month</h3>';
-
          paymentResults.append(results);
 
+   }
+   function f2(objButton){  
+   vehiclePrice = document.getElementById('vehiclePrice').value;
+   document.getElementById('downPayment').value = 4/100*vehiclePrice;
+   document.getElementById('loanTerm').value = 24;
+var         loanTerm = document.getElementById('loanTerm').value,
+            intRate = document.getElementById('intRate').value,
+            tradeValue = document.getElementById('tradeValue').value,
+            amount = parseInt(vehiclePrice),
+            months = parseInt(loanTerm),
+            down = parseInt(downPayment),
+            trade = parseInt(tradeValue),
+            totalDown = down + trade
+         annInterest = parseFloat(intRate),
+            monInt = annInterest / 1200;
 
-      }
+         if (!amount) {
+            alert('Please add a loan amount');
+            return;
+         }
+
+         if (!months) {
+            months = 60;
+            loanTerm = document.getElementById('loanTerm').value = '60';
+         }
+
+         if (!downPayment) {
+            down = 0;
+            downPayment = document.getElementById('downPayment').value = '0';
+         }
+
+         if (!trade) {
+            trade = 0;
+            tradeValue = document.getElementById('tradeValue').value = '0';
+         }
+
+         if (!annInterest) {
+            annInterest = 3.25;
+            intRate = document.getElementById('intRate').value = '3.25';
+         }
+
+         var calc = ((monInt + (monInt / (Math.pow((1 + monInt), months) - 1))) * (amount - (totalDown || 0))).toFixed(2);
+         var paymentResults = document.getElementById('paymentResults');
+         paymentResults.style.display = 'block';
+         paymentResults.innerHTML = '';
+         var results = document.createElement('div');
+         results.innerHTML = '<h1 style="text-align:center">Estimated Monthly Payment is:<br/></h1>' + '<h3 style="text-align:center">฿' + calc + '/Month</h3>';
+         paymentResults.append(results);
+   }
+   function f3(objButton){  
+   vehiclePrice = document.getElementById('vehiclePrice').value;
+   document.getElementById('downPayment').value = 8/100*vehiclePrice;
+   document.getElementById('loanTerm').value = 36;
+var         loanTerm = document.getElementById('loanTerm').value,
+            intRate = document.getElementById('intRate').value,
+            tradeValue = document.getElementById('tradeValue').value,
+            amount = parseInt(vehiclePrice),
+            months = parseInt(loanTerm),
+            down = parseInt(downPayment),
+            trade = parseInt(tradeValue),
+            totalDown = down + trade
+         annInterest = parseFloat(intRate),
+            monInt = annInterest / 1200;
+
+         if (!amount) {
+            alert('Please add a loan amount');
+            return;
+         }
+
+         if (!months) {
+            months = 60;
+            loanTerm = document.getElementById('loanTerm').value = '60';
+         }
+
+         if (!downPayment) {
+            down = 0;
+            downPayment = document.getElementById('downPayment').value = '0';
+         }
+
+         if (!trade) {
+            trade = 0;
+            tradeValue = document.getElementById('tradeValue').value = '0';
+         }
+
+         if (!annInterest) {
+            annInterest = 3.25;
+            intRate = document.getElementById('intRate').value = '3.25';
+         }
+
+         var calc = ((monInt + (monInt / (Math.pow((1 + monInt), months) - 1))) * (amount - (totalDown || 0))).toFixed(2);
+         var paymentResults = document.getElementById('paymentResults');
+         paymentResults.style.display = 'block';
+         paymentResults.innerHTML = '';
+         var results = document.createElement('div');
+         results.innerHTML = '<h1 style="text-align:center">Estimated Monthly Payment is:<br/></h1>' + '<h3 style="text-align:center">฿' + calc + '/Month</h3>';
+         paymentResults.append(results);
+   }
+    
    </script>
 </body>
 
